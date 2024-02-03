@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jd.icity.kgs.collect.mapper.TableCollectRecordMapper">
+    
+    <resultMap type="TableCollectRecord" id="TableCollectRecordResult">
+        <result property="id"    column="id"    />
+        <result property="tableCode"    column="table_code"    />
+        <result property="lastCollectTime"    column="last_collect_time"    />
+        <result property="currentCollectTime"    column="current_collect_time"    />
+        <result property="finishCollectTime"    column="finish_collect_time"    />
+        <result property="status"    column="status"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="modifyUser"    column="modify_user"    />
+        <result property="modifyTime"    column="modify_time"    />
+        <result property="delStat"    column="del_stat"    />
+    </resultMap>
+
+    <sql id="selectTableCollectRecordVo">
+        select id, table_code, last_collect_time, current_collect_time, finish_collect_time, status, create_user, create_time, modify_user, modify_time, del_stat from table_collect_record
+    </sql>
+
+    <select id="selectTableCollectRecordList" parameterType="TableCollectRecord" resultMap="TableCollectRecordResult">
+        <include refid="selectTableCollectRecordVo"/>
+        <where>  
+            <if test="tableCode != null  and tableCode != ''"> and table_code = #{tableCode}</if>
+            <if test="lastCollectTime != null "> and last_collect_time = #{lastCollectTime}</if>
+            <if test="currentCollectTime != null "> and current_collect_time = #{currentCollectTime}</if>
+            <if test="finishCollectTime != null "> and finish_collect_time = #{finishCollectTime}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+            <if test="delStat != null "> and del_stat = #{delStat}</if>
+        </where>
+    </select>
+    
+    <select id="selectTableCollectRecordById" parameterType="Long" resultMap="TableCollectRecordResult">
+        <include refid="selectTableCollectRecordVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTableCollectRecord" parameterType="TableCollectRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into table_collect_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tableCode != null">table_code,</if>
+            <if test="lastCollectTime != null">last_collect_time,</if>
+            <if test="currentCollectTime != null">current_collect_time,</if>
+            <if test="finishCollectTime != null">finish_collect_time,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="modifyUser != null">modify_user,</if>
+            <if test="modifyTime != null">modify_time,</if>
+            <if test="delStat != null">del_stat,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tableCode != null">#{tableCode},</if>
+            <if test="lastCollectTime != null">#{lastCollectTime},</if>
+            <if test="currentCollectTime != null">#{currentCollectTime},</if>
+            <if test="finishCollectTime != null">#{finishCollectTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="modifyUser != null">#{modifyUser},</if>
+            <if test="modifyTime != null">#{modifyTime},</if>
+            <if test="delStat != null">#{delStat},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTableCollectRecord" parameterType="TableCollectRecord">
+        update table_collect_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tableCode != null">table_code = #{tableCode},</if>
+            <if test="lastCollectTime != null">last_collect_time = #{lastCollectTime},</if>
+            <if test="currentCollectTime != null">current_collect_time = #{currentCollectTime},</if>
+            <if test="finishCollectTime != null">finish_collect_time = #{finishCollectTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="modifyUser != null">modify_user = #{modifyUser},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime},</if>
+            <if test="delStat != null">del_stat = #{delStat},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTableCollectRecordById" parameterType="Long">
+        delete from table_collect_record where id = #{id}
+    </delete>
+
+    <delete id="deleteTableCollectRecordByIds" parameterType="String">
+        delete from table_collect_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jd.icity.kgs.collect.mapper.TableCollectLogMapper">
+    
+    <resultMap type="TableCollectLog" id="TableCollectLogResult">
+        <result property="id"    column="id"    />
+        <result property="tableIndexCode"    column="table_index_code"    />
+        <result property="tableCode"    column="table_code"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="status"    column="status"    />
+        <result property="errorMessage"    column="error_message"    />
+        <result property="collectTotalRows"    column="collect_total_rows"    />
+        <result property="batchesProceeded"    column="batches_proceeded"    />
+        <result property="batchSize"    column="batch_size"    />
+        <result property="incrementalFlag"    column="incremental_flag"    />
+        <result property="execIp"    column="exec_ip"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="modifyUser"    column="modify_user"    />
+        <result property="modifyTime"    column="modify_time"    />
+        <result property="delStat"    column="del_stat"    />
+    </resultMap>
+
+    <sql id="selectTableCollectLogVo">
+        select id, table_index_code, table_code, start_time, end_time, status, error_message, collect_total_rows, batches_proceeded, batch_size, incremental_flag, exec_ip, create_user, create_time, modify_user, modify_time, del_stat from table_collect_log
+    </sql>
+
+    <select id="selectTableCollectLogList" parameterType="TableCollectLog" resultMap="TableCollectLogResult">
+        <include refid="selectTableCollectLogVo"/>
+        <where>  
+            <if test="tableIndexCode != null  and tableIndexCode != ''"> and table_index_code = #{tableIndexCode}</if>
+            <if test="tableCode != null  and tableCode != ''"> and table_code = #{tableCode}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="errorMessage != null  and errorMessage != ''"> and error_message = #{errorMessage}</if>
+            <if test="collectTotalRows != null "> and collect_total_rows = #{collectTotalRows}</if>
+            <if test="batchesProceeded != null "> and batches_proceeded = #{batchesProceeded}</if>
+            <if test="batchSize != null "> and batch_size = #{batchSize}</if>
+            <if test="incrementalFlag != null "> and incremental_flag = #{incrementalFlag}</if>
+            <if test="execIp != null  and execIp != ''"> and exec_ip = #{execIp}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
+            <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+            <if test="delStat != null "> and del_stat = #{delStat}</if>
+        </where>
+    </select>
+    
+    <select id="selectTableCollectLogById" parameterType="Long" resultMap="TableCollectLogResult">
+        <include refid="selectTableCollectLogVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectTableCollectLogByTableCode" parameterType="String" resultMap="TableCollectLogResult">
+        <include refid="selectTableCollectLogVo"/>
+        where table_Code = #{tableCode}
+    </select>
+        
+    <insert id="insertTableCollectLog" parameterType="TableCollectLog" useGeneratedKeys="true" keyProperty="id">
+        insert into table_collect_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tableIndexCode != null">table_index_code,</if>
+            <if test="tableCode != null">table_code,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="errorMessage != null">error_message,</if>
+            <if test="collectTotalRows != null">collect_total_rows,</if>
+            <if test="batchesProceeded != null">batches_proceeded,</if>
+            <if test="batchSize != null">batch_size,</if>
+            <if test="incrementalFlag != null">incremental_flag,</if>
+            <if test="execIp != null">exec_ip,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="modifyUser != null">modify_user,</if>
+            <if test="modifyTime != null">modify_time,</if>
+            <if test="delStat != null">del_stat,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tableIndexCode != null">#{tableIndexCode},</if>
+            <if test="tableCode != null">#{tableCode},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="errorMessage != null">#{errorMessage},</if>
+            <if test="collectTotalRows != null">#{collectTotalRows},</if>
+            <if test="batchesProceeded != null">#{batchesProceeded},</if>
+            <if test="batchSize != null">#{batchSize},</if>
+            <if test="incrementalFlag != null">#{incrementalFlag},</if>
+            <if test="execIp != null">#{execIp},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="modifyUser != null">#{modifyUser},</if>
+            <if test="modifyTime != null">#{modifyTime},</if>
+            <if test="delStat != null">#{delStat},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTableCollectLog" parameterType="TableCollectLog">
+        update table_collect_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tableIndexCode != null">table_index_code = #{tableIndexCode},</if>
+            <if test="tableCode != null">table_code = #{tableCode},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="errorMessage != null">error_message = #{errorMessage},</if>
+            <if test="collectTotalRows != null">collect_total_rows = #{collectTotalRows},</if>
+            <if test="batchesProceeded != null">batches_proceeded = #{batchesProceeded},</if>
+            <if test="batchSize != null">batch_size = #{batchSize},</if>
+            <if test="incrementalFlag != null">incremental_flag = #{incrementalFlag},</if>
+            <if test="execIp != null">exec_ip = #{execIp},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="modifyUser != null">modify_user = #{modifyUser},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime},</if>
+            <if test="delStat != null">del_stat = #{delStat},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTableCollectLogById" parameterType="Long">
+        delete from table_collect_log where id = #{id}
+    </delete>
+
+    <delete id="deleteTableCollectLogByIds" parameterType="String">
+        delete from table_collect_log where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
