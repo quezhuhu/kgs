@@ -30,11 +30,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectTableCollectLogList" parameterType="TableCollectLog" resultMap="TableCollectLogResult">
         <include refid="selectTableCollectLogVo"/>
-        <where>  
+        <where>
             <if test="tableIndexCode != null  and tableIndexCode != ''"> and table_index_code = #{tableIndexCode}</if>
             <if test="tableCode != null  and tableCode != ''"> and table_code = #{tableCode}</if>
-            <if test="startTime != null "> and start_time = #{startTime}</if>
-            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="startTime != null "> and start_time &gt;= #{startTime}</if>
+            <if test="endTime != null "> and end_time &lt;= #{endTime}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
             <if test="errorMessage != null  and errorMessage != ''"> and error_message = #{errorMessage}</if>
             <if test="collectTotalRows != null "> and collect_total_rows = #{collectTotalRows}</if>

@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="tableCode != null  and tableCode != ''"> and table_code = #{tableCode}</if>
             <if test="lastCollectTime != null "> and last_collect_time = #{lastCollectTime}</if>
             <if test="currentCollectTime != null "> and current_collect_time = #{currentCollectTime}</if>
-            <if test="finishCollectTime != null "> and finish_collect_time = #{finishCollectTime}</if>
+            <if test="finishCollectTime != null "> and finish_collect_time &lt;= #{finishCollectTime}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
             <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
             <if test="modifyUser != null  and modifyUser != ''"> and modify_user = #{modifyUser}</if>
