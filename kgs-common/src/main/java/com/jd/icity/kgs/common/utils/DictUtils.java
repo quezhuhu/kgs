@@ -2,6 +2,8 @@ package com.jd.icity.kgs.common.utils;
 
 import java.util.Collection;
 import java.util.List;
+
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.jd.icity.kgs.common.constant.CacheConstants;
 import com.jd.icity.kgs.common.utils.spring.SpringUtils;
@@ -37,9 +39,20 @@ public class DictUtils
      * @param key 参数键
      * @return dictDatas 字典数据列表
      */
+//    public static List<SysDictData> getDictCache(String key)
+//    {
+//        JSONArray arrayCache = SpringUtils.getBean(RedisCache.class).getCacheObject(getCacheKey(key));
+//        if (StringUtils.isNotNull(arrayCache))
+//        {
+//            return arrayCache.toList(SysDictData.class);
+//        }
+//        return null;
+//    }
+
     public static List<SysDictData> getDictCache(String key)
     {
-        JSONArray arrayCache = SpringUtils.getBean(RedisCache.class).getCacheObject(getCacheKey(key));
+        JSONArray arrayCache = JSONArray.parseArray(JSON.toJSONString(SpringUtils.getBean(RedisCache.class).getCacheObject(getCacheKey(key))));
+//        JSONArray arrayCache = SpringUtils.getBean(RedisCache.class).getCacheObject(getCacheKey(key));
         if (StringUtils.isNotNull(arrayCache))
         {
             return arrayCache.toList(SysDictData.class);
